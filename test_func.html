@@ -1,0 +1,263 @@
+<html>
+<head>
+<meta charset="utf-8">
+</head>
+<body>  
+<script type="text/javascript">
+<!-- task1 -->
+ document.write("напечатать те из  чисел которые делятся на 4, но не делятся на 6");
+ function task1(number) {
+   var array = [];
+   for(var i = 10; i < number; ++i){ 
+     if((i % 4) == 0){ 
+       if(!(i % 6 == 0)){ 
+         array.push(i); 
+       } 
+     } 
+   }
+   return array;
+  } 
+ 
+ // number = -1;
+ function task1_test1() {
+   var expectedValue = [];
+   var realValue = task1(-1);
+       console.log (realValue);
+     if (expectedValue.length !== realValue.length){
+         console.log ("test failed");
+       return;
+     }
+   console.log ("test passed")
+ }
+ 
+ // number = 0;
+ 
+ function task1_test2() {
+   var expectedValue = [];
+   var realValue = task1(0);
+       console.log (realValue);
+     if (expectedValue.length !== realValue.length){
+       console.log ("test failed");
+       return;
+     }
+   console.log ("test passed")
+ }
+ 
+ //number = 27;
+ 
+ function task1_test3() {
+   var expectedValue = [16, 20];
+   var realValue = task1(27);
+       console.log (realValue);
+     if (expectedValue.length !== realValue.length){
+       console.log ("test failed");
+       return;
+     }
+   console.log ("test passed")
+ }
+ 
+ // number = 54;
+ 
+ function task1_test4() {
+   var expectedValue = [16, 20, 28, 32, 40, 44, 52];
+   var realValue = task1(54);
+   console.log (realValue);
+     if (expectedValue.length !== realValue.length){
+       console.log ("test failed");
+       return;
+     }
+   console.log ("test passed")
+ }
+ 
+ <!-- task2 -->
+ 
+ function task2(number){
+	document.write(" <br>");
+	document.write("18. Задано натуральное число N. Найти количество натуральных чисел, не превосходящих N и не делящихся ни на одно из чисел 2,3,5 <br>");
+	var sum = 0;
+	for (var i = 0; i <= number; i++) {
+		if((i % 2 != 0) && (i % 3 != 0) && (i % 5 != 0) ){
+			sum++;
+		}
+	}
+	return sum;
+}
+// number = -1;
+function task2_test1(){
+	var expectedValue = 0;
+	var realValue = task2(-1);
+	console.log(realValue);
+	if(expectedValue !== realValue){
+		console.log ("test failed");
+		return;
+	}
+	else{
+		console.log("test passed");
+	}
+}
+// number = 0;
+function task2_test(){
+	var expectedValue = 0;
+	var realValue = task2(0);
+	console.log(realValue);
+	if(expectedValue !== realValue){
+		console.log ("test failed");
+		return;
+	}
+	else{
+		console.log("test passed");
+	}
+}
+// number = 44;
+function task2_test3(){
+	var expectedValue = 12;
+	var realValue = task2(44);
+	console.log(realValue);
+	if(expectedValue !== realValue){
+		console.log ("test failed");
+		return;
+	}
+	else{
+		console.log("test passed");
+	}
+}
+// number = 100;
+function task2_test4(){
+	var expectedValue = 26;
+	var realValue = task2(100);
+	console.log(realValue);
+	if(expectedValue !== realValue){
+		console.log ("test failed");
+		return;
+	}
+	else{
+		console.log("test passed");
+	}
+}
+ <!-- task3 -->
+function task3(number){
+	document.write(" <br>");
+	document.write("14. Составьте программу, которая вычисляет сумму квадратов чисел от 1 до введенного вами целого числа N <br>");
+	var sum = 0;
+	for (var i = 1; i <= number; i++) {
+		sum += i * i;
+	}
+	return sum;
+}
+// number = -1;
+function task3_test1(){
+	var expectedValue = 0;
+	var realValue = task3(-1);
+	console.log(realValue);
+	if(expectedValue !== realValue){
+		console.log ("test failed");
+		return;
+	}
+	else{
+		console.log("test passed");
+	}
+}
+// number = 0;
+function task3_test2(){
+	var expectedValue = 0;
+	var realValue = task3(0);
+	console.log(realValue);
+	if(expectedValue !== realValue){
+		console.log ("test failed");
+		return;
+	}
+	else{
+		console.log("test passed");
+	}
+}
+// number = 5;
+function task3_test3(){
+	var expectedValue = 55;
+	var realValue = task3(5);
+	console.log(realValue);
+	if(expectedValue !== realValue){
+		console.log ("test failed");
+		return;
+	}
+	else{
+		console.log("test passed");
+	}
+}
+// number = 33;
+function task3_test4(){
+	var expectedValue = 12529;
+	var realValue = task3(33);
+	console.log(realValue);
+	if(expectedValue !== realValue){
+		console.log ("test failed");
+		return;
+	}
+	else{
+		console.log("test passed");
+	}
+}
+function task4(number){  
+	document.write(" <br>");
+	document.write("4. Составьте программу, составьте программу, которая вычисляет произведение чисел от 1 до n.n вводится с клавиатуры.");
+	document.write("<br>");
+	var sum = 1;
+	for(i=1;i<=number;i++){
+		sum*=i;
+	}
+	return sum;
+}
+// number = -1;
+function task4_test1(){
+	var expectedValue = 0;
+	var realValue = task4(-1);
+	console.log(realValue);
+	if(expectedValue !== realValue){
+		console.log ("test failed");
+		return;
+	}
+	else{
+		console.log("test passed");
+	}
+}
+// number = 0;
+function task4_test2(){
+	var expectedValue = 0;
+	var realValue = task4(0);
+	console.log(realValue);
+	if(expectedValue !== realValue){
+		console.log ("test failed");
+		return;
+	}
+	else{
+		console.log("test passed");
+	}
+}
+// number = 3;
+function task4_test3(){
+	var expectedValue = 6;
+	var realValue = task4(3);
+	console.log(realValue);
+	if(expectedValue !== realValue){
+		console.log ("test failed");
+		return;
+	}
+	else{
+		console.log("test passed");
+	}
+}
+// number = 7;
+function task4_test4(){
+	var expectedValue = 5040;
+	var realValue = task4(7);
+	console.log(realValue);
+	if(expectedValue !== realValue){
+		console.log ("test failed");
+		return;
+	}
+	else{
+		console.log("test passed");
+	}
+}
+</script>
+</body>
+</html> 

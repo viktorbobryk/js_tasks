@@ -3,7 +3,7 @@ var moduleStat = (function (){
 	var data = [
 		{
 			/* group */
-			groupName: "Class A",
+			groupName: "A",
 			students: [
 				{
 					studentName: "Lida",
@@ -352,7 +352,7 @@ var moduleStat = (function (){
 
 		{
 			/* group B */
-			groupName: "Class B",
+			groupName: "B",
 			students: [
 				{
 					studentName: "Bill",
@@ -702,7 +702,7 @@ var moduleStat = (function (){
 		},
 		{
 			/* group */
-			groupName: "Class C",
+			groupName: "C",
 			students: [
 				{
 					studentName: "Alexander",
@@ -1048,6 +1048,44 @@ var moduleStat = (function (){
 			] 
 		},
 	];
+	var countAvgMarkGroup = function(groupName, subject) {
+		var result = null;
+		var group = null;
+		for(var i = 0; i < data.length; ++i) {
+			if (data[i].groupName == groupName) {
+				group = data[i];
+				break;
+			}
+		}
+		if (!group) {
+			return result;
+		}
+
+		var marks = [];
+
+		for(var j = 0; j < group.students.length; ++j) {
+			for (var i = 0; i < group.students[j].marks.length; ++i){
+				if (group.students[j].marks[i].subject == subject) {
+					marks.push(group.students[j].marks[i]);
+				}
+			}
+		}
+
+		if (!marks) {
+			return result;
+		}
+
+		var sumAvg = 0;
+
+		for (var i = 0; i < marks.length; ++i) {
+			sumAvg += marks[i].mark;
+		}
+
+		result = sumAvg / marks.length;
+
+		console.log (result);
+		return result;
+	};
 
 	var countAvgMarkGroup = function(groupName, subject) {
 		var result = null;
@@ -1088,7 +1126,7 @@ var moduleStat = (function (){
 		return result;
 	};
 
-	countAvgMarkGroup("Class B", "phisics");
+	//countAvgMarkGroup("B", "phisics");
 
 	var countAvgMarkStudent = function(studentName) {
 	var result = null;
@@ -1118,5 +1156,29 @@ var moduleStat = (function (){
 	return resultStud;
 	};
 
-	countAvgMarkStudent("Kate");
+	//countAvgMarkStudent("Lida");
+	return {
+		countAvgMarkStudent: countAvgMarkStudent,
+		countAvgMarkGroup: countAvgMarkGroup
+	}
 })();
+function search(){
+	var student = $("#student").val();
+	var group = $("#group").val();
+	
+	var res = [];
+	
+	if(student){
+		res = moduleStat.countAvgMarkStudent(student);
+	}
+	if(group){
+		res = moduleStat.countAvgMarkGroup(group);
+	}
+	var resultText = "";
+		for (var i = 0; i < res.length; ++i) {
+			resultText +=  res[i].student + res[i].group ;
+		}
+		
+		$("#result").html('<table border="1">' + resultText + '</table>');
+			
+};

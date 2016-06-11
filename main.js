@@ -21,13 +21,13 @@ var moduleStat = (function (){
 						},
 
 						{
-							mark: 5,
+							mark: 0,
 							subject: "maths",
 							date: "1 / Sept"
 						}, 
 
 						{
-							mark: 7,
+							mark: 0,
 							subject: "js",
 							date: "5 / Sept"
 						},
@@ -62,7 +62,7 @@ var moduleStat = (function (){
 						}, 
 
 						{
-							mark: 7,
+							mark: 0,
 							subject: "css",
 							date: "5 / Sept"
 						},
@@ -84,7 +84,7 @@ var moduleStat = (function (){
 						}, 
 
 						{
-							mark: 10,
+							mark: 0,
 							subject: "js",
 							date: "10 / Sept"
 						},
@@ -112,13 +112,13 @@ var moduleStat = (function (){
 					studentName: "Petya",
 					marks: [
 						{
-							mark: 10,
+							mark: 0,
 							subject: "phisics",
 							date: "1 / Sept"
 						}, 
 
 						{
-							mark: 10,
+							mark: 0,
 							subject: "js",
 							date: "10 / Sept"
 						},
@@ -146,13 +146,13 @@ var moduleStat = (function (){
 					studentName: "Tolya",
 					marks: [
 						{
-							mark: 10,
+							mark: 0,
 							subject: "phisics",
 							date: "1 / Sept"
 						}, 
 
 						{
-							mark: 10,
+							mark: 0,
 							subject: "css",
 							date: "10 / Sept"
 						},
@@ -192,7 +192,7 @@ var moduleStat = (function (){
 						},
 
 						{
-							mark: 9,
+							mark: 0,
 							subject: "maths",
 							date: "1 / Sept"
 						}, 
@@ -214,7 +214,7 @@ var moduleStat = (function (){
 					studentName: "AndriyD",
 					marks: [
 						{
-							mark: 10,
+							mark: 0,
 							subject: "phisics",
 							date: "1 / Sept"
 						}, 
@@ -248,7 +248,7 @@ var moduleStat = (function (){
 					studentName: "AndriyK",
 					marks: [
 						{
-							mark: 8,
+							mark: 0,
 							subject: "css",
 							date: "5 / Sept"
 						},
@@ -282,7 +282,7 @@ var moduleStat = (function (){
 					studentName: "AndriyG",
 					marks: [
 						{
-							mark: 10,
+							mark: 0,
 							subject: "phisics",
 							date: "1 / Sept"
 						}, 
@@ -317,19 +317,19 @@ var moduleStat = (function (){
 					studentName: "Borya",
 					marks: [
 						{
-							mark: 10,
+							mark: 0,
 							subject: "phisics",
 							date: "1 / Sept"
 						}, 
 
 						{
-							mark: 10,
+							mark: 0,
 							subject: "css",
 							date: "10 / Sept"
 						},
 
 						{
-							mark: 9,
+							mark: 0,
 							subject: "maths",
 							date: "1 / Sept"
 						}, 
@@ -1089,6 +1089,47 @@ var moduleStat = (function (){
 
 	//countAvgMarkGroup("B", "phisics");
 	
+	var countAbsentsOfGroup = function(groupName, subject) {
+		var result = null;
+		var group = null;
+		for(var i = 0; i < catalog.length; ++i) {
+			if (groupName == catalog[i].groupName ) {
+				group = catalog[i];
+				break;
+			}
+		}
+		if (!group) {
+			return result;
+		}
+
+		var marks = [];
+
+		for(var j = 0; j < group.students.length; ++j) {
+			for (var i = 0; i < group.students[j].marks.length; ++i){
+				if (subject == group.students[j].marks[i].subject ) {
+					marks.push(group.students[j].marks[i]);
+				}
+			}
+		}
+
+		if (!marks) {
+			return result;
+		}
+
+		var absent = 0;
+
+		for (var i = 0; i < marks.length; ++i) {
+			if(marks[i].mark == 0){
+				absent++;
+			} 
+		}
+
+		//console.log (absent);
+		return absent;
+	};
+
+	//countAbsentsOfGroup("A", "phisics");
+	
 	var countAvgMark = function(csubject){
 		var result = 0;
 		var marks = [];
@@ -1121,40 +1162,105 @@ var moduleStat = (function (){
 	};
 	//countAvgMark("css");
 	
-	var countAvgMarkStudent = function(studentName) {
-	var result = null;
-	var student = null;
-
-	for(var i = 0; i < catalog.length; ++i) {
-		for (var j = 0; j < catalog[i].students.length; ++j) {
-			if (studentName == catalog[i].students[j].studentName ) {
-				student = catalog[i].students[j];
-				break;
+	var countCommonAbsents = function(csubject){
+		var result = 0;
+		var marks = [];
+		for(var i = 0; i < catalog.length; i++){
+			
+			for(var j = 0; j < catalog[i].students.length;j++){
+			
+				for(var k = 0; k < catalog[i].students[j].marks.length; k++){
+				
+						if(csubject == catalog[i].students[j].marks[k].subject){
+							
+							marks.push(catalog[i].students[j].marks[k]);
+						}
+				}
 			}
 		}
-	}
-
-	if (!student) {
+		if(!marks){
 		return result;
-	}
+		}
+		var absent = 0;
+	
+		for (var i = 0; i < marks.length; ++i) {
+			if(marks[i].mark == 0){
+				absent++;
+			}
+			}
 
-	var sumAvg = 0
-	for (var k = 0; k < student.marks.length; ++k) {
-		sumAvg += student.marks[k].mark;
-	}
-
-	resultStud = sumAvg / student.marks.length;
-
-	//console.log (resultStud);
-	return resultStud;
+		//console.log (absent);
+		return absent;
 	};
+	//countCommonAbsents("css");
+	
+	var countAvgMarkStudent = function(studentName) {
+		var result = null;
+		var student = null;
 
+		for(var i = 0; i < catalog.length; ++i) {
+			for (var j = 0; j < catalog[i].students.length; ++j) {
+				if (studentName == catalog[i].students[j].studentName ) {
+					student = catalog[i].students[j];
+					break;
+				}
+			}
+		}
+
+		if (!student) {
+			return result;
+		}
+		var sumAvg = 0
+		for (var k = 0; k < student.marks.length; ++k) {
+			sumAvg += student.marks[k].mark;
+			
+		}
+
+		resultStud = sumAvg / student.marks.length;
+
+		//console.log (resultStud);
+		return resultStud;
+	};
+	
+	
+	
+	var countAbsent = function(studentName) {
+		var result = null;
+		var student = null;
+
+		for(var i = 0; i < catalog.length; ++i) {
+			for (var j = 0; j < catalog[i].students.length; ++j) {
+				if (studentName == catalog[i].students[j].studentName ) {
+					student = catalog[i].students[j];
+					break;
+				}
+			}
+		}
+
+		if (!student) {
+			return result;
+		}
+		var absent = 0;
+		for (var k = 0; k < student.marks.length; ++k) {
+			if(student.marks[k].mark == 0){
+				absent ++;
+			}
+			
+		}
+
+		//console.log (absent);
+		return absent;
+	};
+	//countAbsent("Lida");
 	//countAvgMarkStudent("Lida");
 	
 	return {
 		countAvgMarkStudent: countAvgMarkStudent,
 		countAvgMarkGroup: countAvgMarkGroup,
-		countAvgMark: countAvgMark
+		countAvgMark: countAvgMark,
+		countAbsent: countAbsent,
+		countCommonAbsents: countCommonAbsents,
+		countAbsentsOfGroup: countAbsentsOfGroup
 	}
 })();
 function search(){
@@ -1166,18 +1272,22 @@ function search(){
 	//console.log(groupName);
 	//console.log(studentName);
 	var res = [];
+	var absent = [];
 	
 	if(studentName){
 		res = moduleStat.countAvgMarkStudent(studentName);
-		$("#result").html('average result ' + studentName + ' is : ' + res);	
+		absent = moduleStat.countAbsent(studentName);
+		$("#result").html('average result ' + studentName + ' is : ' + res + '<br>' + studentName + ' has ' + absent + " absents ");	
 	}
 	if(groupName){
 		res = moduleStat.countAvgMarkGroup(groupName, subject);
-		$("#result").html('average result group ' + groupName + ' of subject ' + subject + ' is : ' + res);
+		absent = moduleStat.countAbsentsOfGroup(groupName, subject);
+		$("#result").html('average result group ' + groupName + ' of subject ' + subject + ' is : ' + res + '<br>' + ' group has ' + absent + " absents " );
 	}
 	if(csubject){
 		res = moduleStat.countAvgMark(csubject);
-		$("#result").html('average result all groups of subject ' + csubject + ' is : ' + res);
+		absent = moduleStat.countCommonAbsents(csubject);
+		$("#result").html('average result all groups of subject ' + csubject + ' is : ' + res + '<br>'  + ' all groups have ' + absent + " absents ");
 	}
 			
 };

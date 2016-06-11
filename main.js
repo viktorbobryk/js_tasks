@@ -1,6 +1,6 @@
 var moduleStat = (function (){
 
-	var data = [
+	var catalog = [
 		{
 			/* group */
 			groupName: "A",
@@ -1051,9 +1051,9 @@ var moduleStat = (function (){
 	var countAvgMarkGroup = function(groupName, subject) {
 		var result = null;
 		var group = null;
-		for(var i = 0; i < data.length; ++i) {
-			if (data[i].groupName == groupName) {
-				group = data[i];
+		for(var i = 0; i < catalog.length; ++i) {
+			if (groupName == catalog[i].groupName ) {
+				group = catalog[i];
 				break;
 			}
 		}
@@ -1065,7 +1065,7 @@ var moduleStat = (function (){
 
 		for(var j = 0; j < group.students.length; ++j) {
 			for (var i = 0; i < group.students[j].marks.length; ++i){
-				if (group.students[j].marks[i].subject == subject) {
+				if (subject == group.students[j].marks[i].subject ) {
 					marks.push(group.students[j].marks[i]);
 				}
 			}
@@ -1083,59 +1083,52 @@ var moduleStat = (function (){
 
 		result = sumAvg / marks.length;
 
-		console.log (result);
-		return result;
-	};
-
-	var countAvgMarkGroup = function(groupName, subject) {
-		var result = null;
-		var group = null;
-		for(var i = 0; i < data.length; ++i) {
-			if (data[i].groupName == groupName) {
-				group = data[i];
-				break;
-			}
-		}
-		if (!group) {
-			return result;
-		}
-
-		var marks = [];
-
-		for(var j = 0; j < group.students.length; ++j) {
-			for (var i = 0; i < group.students[j].marks.length; ++i){
-				if (group.students[j].marks[i].subject == subject) {
-					marks.push(group.students[j].marks[i]);
-				}
-			}
-		}
-
-		if (!marks) {
-			return result;
-		}
-
-		var sumAvg = 0;
-
-		for (var i = 0; i < marks.length; ++i) {
-			sumAvg += marks[i].mark;
-		}
-
-		result = sumAvg / marks.length;
-
-		console.log (result);
+		//console.log (result);
 		return result;
 	};
 
 	//countAvgMarkGroup("B", "phisics");
+	
+	var countAvgMark = function(csubject){
+		var result = 0;
+		var marks = [];
+		for(var i = 0; i < catalog.length; i++){
+			
+			for(var j = 0; j < catalog[i].students.length;j++){
+			
+				for(var k = 0; k < catalog[i].students[j].marks.length; k++){
+				
+						if(csubject == catalog[i].students[j].marks[k].subject){
+							
+							marks.push(catalog[i].students[j].marks[k]);
+						}
+				}
+			}
+		}
+		if(!marks){
+		return result;
+		}
+		var sumAvg = 0;
+	
+		for (var i = 0; i < marks.length; ++i) {
+				sumAvg += marks[i].mark;
+			}
 
+		result = sumAvg / marks.length;
+
+		//console.log (result);
+		return result;
+	};
+	//countAvgMark("css");
+	
 	var countAvgMarkStudent = function(studentName) {
 	var result = null;
 	var student = null;
 
-	for(var i = 0; i < data.length; ++i) {
-		for (var j = 0; j < data[i].students.length; ++j) {
-			if (data[i].students[j].studentName == studentName) {
-				student = data[i].students[j];
+	for(var i = 0; i < catalog.length; ++i) {
+		for (var j = 0; j < catalog[i].students.length; ++j) {
+			if (studentName == catalog[i].students[j].studentName ) {
+				student = catalog[i].students[j];
 				break;
 			}
 		}
@@ -1152,33 +1145,39 @@ var moduleStat = (function (){
 
 	resultStud = sumAvg / student.marks.length;
 
-	console.log (resultStud);
+	//console.log (resultStud);
 	return resultStud;
 	};
 
 	//countAvgMarkStudent("Lida");
+	
 	return {
 		countAvgMarkStudent: countAvgMarkStudent,
-		countAvgMarkGroup: countAvgMarkGroup
+		countAvgMarkGroup: countAvgMarkGroup,
+		countAvgMark: countAvgMark
 	}
 })();
 function search(){
-	var student = $("#student").val();
-	var group = $("#group").val();
-	
+	var studentName = $("#student").val();
+	var groupName = $("#group").val();
+	var csubject = $("#csubject").val();
+	var subject = $("#subject").val();
+	//console.log(csubject);
+	//console.log(groupName);
+	//console.log(studentName);
 	var res = [];
 	
-	if(student){
-		res = moduleStat.countAvgMarkStudent(student);
+	if(studentName){
+		res = moduleStat.countAvgMarkStudent(studentName);
+		$("#result").html('average result ' + studentName + ' is : ' + res);	
 	}
-	if(group){
-		res = moduleStat.countAvgMarkGroup(group);
+	if(groupName){
+		res = moduleStat.countAvgMarkGroup(groupName, subject);
+		$("#result").html('average result group ' + groupName + ' of subject ' + subject + ' is : ' + res);
 	}
-	var resultText = "";
-		for (var i = 0; i < res.length; ++i) {
-			resultText +=  res[i].student + res[i].group ;
-		}
-		
-		$("#result").html('<table border="1">' + resultText + '</table>');
+	if(csubject){
+		res = moduleStat.countAvgMark(csubject);
+		$("#result").html('average result all groups of subject ' + csubject + ' is : ' + res);
+	}
 			
 };

@@ -392,13 +392,13 @@ var moduleStat = (function (){
 					}, 
 					{
 						day: "03",
-						temperature: 25,
+						temperature: 15,
 						hymidity: 70,
 						wind: "180"
 					}, 
 					{
 						day: "04",
-						temperature: 25,
+						temperature: 21,
 						hymidity: 74,
 						wind: "180"
 					}, 
@@ -410,7 +410,7 @@ var moduleStat = (function (){
 					}, 
 					{
 						day: "06",
-						temperature: 26,
+						temperature: 21,
 						hymidity: 72,
 						wind: "135"
 					}, 
@@ -428,13 +428,13 @@ var moduleStat = (function (){
 					}, 
 					{
 						day: "09",
-						temperature: 24,
+						temperature: 14,
 						hymidity: 70,
 						wind: "135"
 					}, 
 					{
 						day: "10",
-						temperature: 25,
+						temperature: 21,
 						hymidity: 70,
 						wind: "135"
 					}, 
@@ -470,7 +470,7 @@ var moduleStat = (function (){
 					}, 
 					{
 						day: "16",
-						temperature: 30,
+						temperature: 40,
 						hymidity: 70,
 						wind: "135"
 					}, 
@@ -620,7 +620,7 @@ var moduleStat = (function (){
 					}, 
 					{
 						day: "10",
-						temperature: 21,
+						temperature: 14,
 						hymidity: 95,
 						wind: "0" 
 					}, 
@@ -662,7 +662,7 @@ var moduleStat = (function (){
 					}, 
 					{
 						day: "17",
-						temperature: 15,
+						temperature: 14,
 						hymidity: 98,
 						wind: "45" 
 					}, 
@@ -746,16 +746,126 @@ var moduleStat = (function (){
 				]	
 		},
 	];
-	var searchAvgCityTemp = function(cityName){
+	var searchAvgTemp = function(){
 		var result = 0;
+		var sum = 0;
 		var temp = [];
 		for(var i = 0; i < catalog.length; i++){
 			
 			for(var j = 0; j < catalog[i].days.length; j++){
-				
+				temp.push(catalog[i].days[j].temperature)
 				
 			}
 		}
+		//console.log(temp);
+		for(var i = 0; i < temp.length; i++){
+			sum += temp[i];
+		}
+		result = sum / temp.length;
+		//console.log (result);
+		return result.toFixed(2);
 	}
-
+	//searchAvgTemp();
+	
+	var searchAvgCityTemp = function(cityName){
+		var result = 0;
+		var sum = 0;
+		var temp = [];
+		for(var i = 0; i < catalog.length; i++){
+			if(cityName == catalog[i].cityName){
+				for(var j = 0; j < catalog[i].days.length; j++){
+					temp.push(catalog[i].days[j].temperature)
+					
+				}
+			}	
+		}
+		console.log(temp);
+		for(var i = 0; i < temp.length; i++){
+			sum += temp[i];
+		}
+		result = sum / temp.length;
+		//console.log (result.toFixed(2));
+		return result.toFixed(2);
+	}
+	//searchAvgCityTemp("London");
+	var searchMaxTemp = function(){
+		var temp = [];
+		var max = -Infinity;
+		var day;
+		var city;
+		for(var i = 0; i < catalog.length; i++){
+			
+			for(var j = 0; j < catalog[i].days.length; j++){
+				temp.push(catalog[i].days[j].temperature)
+				if(max < catalog[i].days[j].temperature){
+					max = catalog[i].days[j].temperature;
+					day = catalog[i].days[j].day;
+					city = catalog[i].cityName;
+				}
+				
+			}
+		}
+		//console.log(temp);
+		//console.log(max);
+		//console.log(day);
+		//console.log(city);
+		return max;
+		return day;
+		return city;
+	}
+	//searchMaxTemp();
+	
+	var searchMaxHymid = function(){
+		var hymid = [];
+		var max = -Infinity;
+		var day;
+		var city;
+		for(var i = 0; i < catalog.length; i++){
+			
+			for(var j = 0; j < catalog[i].days.length; j++){
+				hymid.push(catalog[i].days[j].hymidity)
+				if(max < catalog[i].days[j].hymidity){
+					max = catalog[i].days[j].hymidity;
+					day = catalog[i].days[j].day;
+					city = catalog[i].cityName;
+				}
+				
+			}
+		}
+		//console.log(hymid);
+		//console.log(max);
+		//console.log(day);
+		//console.log(city);
+		return max;
+		return day;
+		return city;
+	}
+	//searchMaxHymid();
+	
+	var searchMaxWind = function(){
+		var wind = [];
+		var max = -Infinity;
+		var day;
+		var city;
+		for(var i = 0; i < catalog.length; i++){
+			
+			for(var j = 0; j < catalog[i].days.length; j++){
+				wind.push(catalog[i].days[j].wind)
+				if(max < catalog[i].days[j].wind){
+					max = catalog[i].days[j].wind;
+					day = catalog[i].days[j].day;
+					city = catalog[i].cityName;
+				}
+				
+			}
+		}
+		console.log(wind);
+		console.log(max);
+		console.log(day);
+		console.log(city);
+		return max;
+		return day;
+		return city;
+	}
+	searchMaxWind();
 })();

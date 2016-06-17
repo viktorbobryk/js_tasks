@@ -1270,7 +1270,7 @@ function search(){
 	var subject = $("#subject").val();
 	//console.log(csubject);
 	//console.log(groupName);
-	//console.log(studentName);
+	console.log(studentName);
 	var res = [];
 	var absent = [];
 	

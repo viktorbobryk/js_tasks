@@ -985,11 +985,11 @@ var moduleStat = (function (){
 				}
 			}	
 		}
-		console.log(temp);
+		//console.log(temp);
 		for(var i = 0; i < temp.length; i++){
 			sum += temp[i];
 		}
-		result = sum / temp.length;
+		result = sum / 30;
 		//console.log (result.toFixed(2));
 		return result.toFixed(2);
 	}
@@ -1007,7 +1007,7 @@ var moduleStat = (function (){
 				}
 			}	
 		}
-		console.log(hymid);
+		//console.log(hymid);
 		for(var i = 0; i < hymid.length; i++){
 			sum += hymid[i];
 		}
@@ -1058,15 +1058,15 @@ var moduleStat = (function (){
 				
 			}
 		}
+		var res = "max temperature : " + max  + "C" + ", day : " + day + " of June " + ", city : " + city;
 		//console.log(temp);
 		//console.log(max);
 		//console.log(day);
 		//console.log(city);
-		return max;
-		return day;
-		return city;
+		//console.log(res);
+		return res;
 	}
-	//searchMaxTemp();
+	searchMaxTemp();
 	
 	var searchMaxHymid = function(){
 		var hymid = [];
@@ -1085,13 +1085,12 @@ var moduleStat = (function (){
 				
 			}
 		}
+		var res = "max hymidity : " + max  + "%" + ", day : " + day + " of June " + ", city : " + city;
 		//console.log(hymid);
 		//console.log(max);
 		//console.log(day);
 		//console.log(city);
-		return max;
-		return day;
-		return city;
+		return res;
 	}
 	//searchMaxHymid();
 	
@@ -1112,13 +1111,12 @@ var moduleStat = (function (){
 				
 			}
 		}
+		var res = "max power of wind : " + max  + "m/s" + ", day : " + day + " of June " + ", city : " + city;
 		//console.log(wind);
 		//console.log(max);
 		//console.log(day);
 		//console.log(city);
-		return max;
-		return day;
-		return city;
+		return res;
 	}
 	//searchMaxWindPow();
 	
@@ -1136,3 +1134,52 @@ var moduleStat = (function (){
 		searchMaxWindPow: searchMaxWindPow
 	}
 })();
+function search(){
+	var option = $("#selectOption").val();
+	var res;
+	//console.log(option);
+	if(option == "maxTemp"){
+		res = moduleStat.searchMaxTemp();
+		$("#maxParameter").html(res);
+		//console.log(res);
+	}
+	else if( option == "maxHym")
+	{
+		res = moduleStat.searchMaxHymid();
+		$("#maxParameter").html(res);
+		//console.log(res);
+	}
+	else if (option == "maxWindPow"){
+		res = moduleStat.searchMaxWindPow();
+		$("#maxParameter").html(res);
+		//console.log(res);
+	}
+	$("#maxParametr").html(res);
+}
+
+function stat(){
+	var avgWindDir = moduleStat.searchWindDirection();
+	var avgTemp = moduleStat.searchAvgTemp();
+	var avgHymid = moduleStat.searchAvgHymid();
+	var avgWindPow = moduleStat.searchAvgWindPow();
+	var resultText = "<p>" + "average direction of wind : " + avgWindDir + "degrees (East)" + "</p>" + "<br>" + "<p>" + "average temperature : " + avgTemp + "C" + "</p>" + "<br>" + "<p>" + "average hymidity : " + avgHymid + " % " + "</p>" + "<br>" ; 
+		
+		$("#result").html(resultText);
+}	
+
+function cityStat(){
+var temp;
+var hymid;
+var pow;
+var wir;
+
+	var cityName = $("#city").val();
+	if(cityName){
+		temp = moduleStat.searchAvgCityTemp(cityName);
+		hymid = moduleStat.searchAvgCityHymid(cityName); 
+		pow = moduleStat.searchAvgCityWindPow(cityName);
+		dir = moduleStat.searchAvgCityWindPow(cityName);
+	}
+	console.log(hymid);
+	};
+	cityStat();

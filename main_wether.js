@@ -885,7 +885,7 @@ var moduleStat = (function (){
 		//console.log (result);
 		return result;
 	}
-	//searchCityWindDir("Kyiv");
+	//searchCityWindDir("London");
 	
 	// search prevailing wind 
 	
@@ -1029,7 +1029,7 @@ var moduleStat = (function (){
 				}
 			}	
 		}
-		console.log(windpow);
+		//console.log(windpow);
 		for(var i = 0; i < windpow.length; i++){
 			sum += windpow[i];
 		}
@@ -1058,7 +1058,7 @@ var moduleStat = (function (){
 				
 			}
 		}
-		var res = "max temperature : " + max  + "C" + ", day : " + day + " of June " + ", city : " + city;
+		var res = "max temperature : " + max  + "C" + "<br>" + " day : " + day + " of June " + "<br>" + " city : " + city;
 		//console.log(temp);
 		//console.log(max);
 		//console.log(day);
@@ -1085,7 +1085,7 @@ var moduleStat = (function (){
 				
 			}
 		}
-		var res = "max hymidity : " + max  + "%" + ", day : " + day + " of June " + ", city : " + city;
+		var res = "max hymidity : " + max  + "%" + "<br>" + " day : " + day + " of June " + "<br>" + " city : " + city;
 		//console.log(hymid);
 		//console.log(max);
 		//console.log(day);
@@ -1111,7 +1111,7 @@ var moduleStat = (function (){
 				
 			}
 		}
-		var res = "max power of wind : " + max  + "m/s" + ", day : " + day + " of June " + ", city : " + city;
+		var res = "max power of wind : " + max  + "m/s" + "<br>" + " day : " + day + " of June " + "<br>" + " city : " + city;
 		//console.log(wind);
 		//console.log(max);
 		//console.log(day);
@@ -1162,7 +1162,32 @@ function stat(){
 	var avgTemp = moduleStat.searchAvgTemp();
 	var avgHymid = moduleStat.searchAvgHymid();
 	var avgWindPow = moduleStat.searchAvgWindPow();
-	var resultText = "<p>" + "average direction of wind : " + avgWindDir + "degrees (East)" + "</p>" + "<br>" + "<p>" + "average temperature : " + avgTemp + "C" + "</p>" + "<br>" + "<p>" + "average hymidity : " + avgHymid + " % " + "</p>" + "<br>" ; 
+	var worldSide;
+	if((avgWindDir > 0 && avgWindDir < 23) || (avgWindDir > 338 && avgWindDir < 360)){
+		worldSide = "N";
+	}
+	else if(avgWindDir > 23 && avgWindDir < 68){
+		worldSide = "NE";
+	}
+	else if(avgWindDir > 68 && avgWindDir < 113){
+		worldSide = "E";
+	}
+	else if(avgWindDir > 113 && avgWindDir < 158){
+		worldSide = "SE";
+	}
+	else if(avgWindDir > 158 && avgWindDir < 203){
+		worldSide = "S";
+	}
+	else if(dir > 203 && dir < 248){
+		worldSide = "SW";
+	}
+	else if(avgWindDir > 248 && avgWindDir < 293){
+		worldSide = "W";
+	}
+	else if(avgWindDir > 293 && avgWindDir < 338){
+		worldSide = "NW";
+	}
+	var resultText = "average direction of wind : " + avgWindDir + "degrees " + "(" + worldSide + ")" + "<br>" + "average temperature : " + avgTemp + "C" + "<br>" + "average hymidity : " + avgHymid + " % " + "<br>" ; 
 		
 		$("#result").html(resultText);
 }	
@@ -1171,15 +1196,43 @@ function cityStat(){
 var temp;
 var hymid;
 var pow;
-var wir;
-
-	var cityName = $("#city").val();
+var dir;
+var cityName = $("#city").val();
 	if(cityName){
 		temp = moduleStat.searchAvgCityTemp(cityName);
 		hymid = moduleStat.searchAvgCityHymid(cityName); 
 		pow = moduleStat.searchAvgCityWindPow(cityName);
-		dir = moduleStat.searchAvgCityWindPow(cityName);
+		dir = moduleStat.searchCityWindDir(cityName);
 	}
-	console.log(hymid);
+	
+	if((dir > 0 && dir < 23) || (dir > 338 && dir < 360)){
+		worldSide = "N";
+	}
+	else if(dir > 23 && dir < 68){
+		worldSide = "NE";
+	}
+	else if(dir > 68 && dir < 113){
+		worldSide = "E";
+	}
+	else if(dir > 113 && dir < 158){
+		worldSide = "SE";
+	}
+	else if(dir > 158 && dir < 203){
+		worldSide = "S";
+	}
+	else if(dir > 203 && dir < 248){
+		worldSide = "SW";
+	}
+	else if(dir > 248 && dir < 293){
+		worldSide = "W";
+	}
+	else if(dir > 293 && dir < 338){
+		worldSide = "NW";
+	}
+	var resultText = "average temperature : " + temp + "C" + "<br>"
++ "average hymidity : " + hymid + "%" + "<br>" + " power of wind : "	 + 
+pow + "mps" + "<br>" + "direction of wind : " + dir + "degrees" +"("  + worldSide + ")" + "<br>";
+	//console.log(dir);
+	$("#cityresult").html(resultText);
 	};
-	cityStat();
+	//cityStat();
